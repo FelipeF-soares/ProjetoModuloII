@@ -42,6 +42,13 @@ public class Contato {
 				.map(String::trim)
 				.collect(Collectors.joining(" "));
 	}
+
+	public String getTelefoneCompleto(Integer telefoneIndex){
+		return Stream.of(telefones.get(telefoneIndex).getDdd(), telefones.get(telefoneIndex).getNumeroTelefone())
+				.filter(string -> string != null && !string.isEmpty())
+				.map(String::trim)
+				.collect(Collectors.joining(" "));
+	}
 	
 	@Override
 	public String toString() {

@@ -151,7 +151,7 @@ public class AgendaUI {
 			for(int i = 0; i < listar.size(); i++) {
 				System.out.println("Nome: "+listar.get(i).getNomeCompleto());
 				for(int j = 0; j < listar.get(i).getTelefones().size(); j++) {
-					System.out.println((j+1)+"º Telefone: "+listar.get(i).getTelefones().get(j).getDdd()+" "+listar.get(i).getTelefones().get(j).getNumeroTelefone());
+					System.out.println((j+1)+"º Telefone: "+listar.get(i).getTelefoneCompleto(j));
 				}
 			}
 		}
