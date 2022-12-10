@@ -128,12 +128,16 @@ public class AgendaUI {
 			System.out.println("Você não Possui Contatos em sua Lista");
 		}else {
 			for(int i = 0; i < listar.size(); i++) {
-				System.out.println("Nome: "+listar.get(i).getNomeCompleto());
+				System.out.println("\n"+(i+1)+"º Contato\n"+"Nome: "+listar.get(i).getNomeCompleto());
 				for(int j = 0; j < listar.get(i).getTelefones().size(); j++) {
 					System.out.println((j+1)+"º Telefone: "+listar.get(i).getTelefoneCompleto(j));
 				}
+				for(int j = 0; j < listar.get(i).getEnderecos().size();j++) {
+					System.out.println((j+1)+"º Endereço: "+listar.get(i).getEnderecos().get(j).getLogradouro());
+				}
 			}
 		}
+		System.out.println("\n");
 	}
 	
 	public void buscarPorNome() {
@@ -220,7 +224,7 @@ public class AgendaUI {
 		List<Telefone> listaTelefones = new ArrayList<Telefone>();
 		String nextLine;
 		do {
-			System.out.println("Deseja adicionar um Endereço?");
+			System.out.println("Deseja adicionar um Telefone?");
 			System.out.println("1-Sim");
 			System.out.println("Qualquer outro valor para voltar ao Menu Pricipal");
 			nextLine = scanner.nextLine();
