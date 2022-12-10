@@ -1,6 +1,5 @@
 package dto;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import model.Contato;
@@ -19,34 +18,35 @@ public class ContatoDto {
 	 private String ddd;
 	 private String numeroTelefone;
 	 
-	 public Contato adicionarContato() {
+	 
+	 public Contato adicionarContato(List<Endereco> listaEndereco, List<Telefone> listaTelefone) {
 		 Contato contato = new Contato();
-		 Endereco endereco = new Endereco();
-		 Telefone telefone = new Telefone();
-		 List<Endereco> listaEndereco = new ArrayList<Endereco>(); 
-		 List<Telefone> listaTelefone = new ArrayList<Telefone>(); 
-		 
 		 contato.setNome(nome);
 		 contato.setSobrenome(sobrenome);
+		 contato.setEnderecos(listaEndereco);
+		 contato.setTelefones(listaTelefone);
 		 
+		 return contato; 
+	 }
+	 
+	 public Endereco adicionaEndereco() {
+		 Endereco endereco = new Endereco(); 
 		 endereco.setLogradouro(logradouro);
 		 endereco.setNumeroEndereco(numeroEndereco);
 		 endereco.setCep(cep);
 		 endereco.setCidade(cidade);
 		 endereco.setEstado(estado);
-		 listaEndereco.add(endereco);
-		 
+		 return endereco;
+	 }
+	 
+	 public Telefone adicionaTelefone(){
+		 Telefone telefone = new Telefone();
 		 telefone.setDdd(ddd);
 		 telefone.setNumeroTelefone(numeroTelefone);
-		 listaTelefone.add(telefone);
-		 
-		 contato.setEnderecos(listaEndereco);
-		 contato.setTelefones(listaTelefone);
-		 
-		 
-		 
-		 return contato; 
+		 return telefone;
 	 }
+	 
+	 
 	
 	 
 	public String getNome() {
@@ -94,8 +94,7 @@ public class ContatoDto {
 	public String getDdd() {
 		return ddd;
 	}
-	public void setDdd(String ddd) throws Exception {
-		Integer.valueOf(ddd);
+	public void setDdd(String ddd){
 		this.ddd = ddd;
 	}
 	public String getNumeroTelefone() {

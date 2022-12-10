@@ -5,13 +5,14 @@ import java.util.List;
 import dto.ContatoDto;
 import model.Agenda;
 import model.Contato;
+import model.Telefone;
 
 public class ContatoController {
 	
 	static Agenda agenda = new Agenda();
 	
-	public void adicionar(ContatoDto dto) {
-		agenda.adicionar(dto.adicionarContato());
+	public void adicionar(Contato contato) {
+		agenda.adicionar(contato);
 	}
 	
 	public List<Contato>  listar() {

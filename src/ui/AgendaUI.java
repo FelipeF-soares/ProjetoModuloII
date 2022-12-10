@@ -1,11 +1,14 @@
 package ui;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 import controller.ContatoController;
 import dto.ContatoDto;
 import model.Contato;
+import model.Endereco;
+import model.Telefone;
 
 public class AgendaUI {
 	static Scanner scanner = new Scanner(System.in);
@@ -61,7 +64,6 @@ public class AgendaUI {
             System.out.println("2- Adicionar Endereço para Contato");
             System.out.println("3- Remover Telefone para Contato");
             System.out.println("4- Remover Endereço para Contato");
-            System.out.println("5- Remover Todos os Contatos");
             System.out.println("0- Retornar ao menu principal");
 
             switch (scanner.nextLine()) {
@@ -98,36 +100,13 @@ public class AgendaUI {
 		ContatoDto dto = new ContatoDto();
 		Boolean retornoAdiciona = true;
 		do {
-			System.out.println("....::DADOS PESSOAIS:....");
-			System.out.println("Digite o nome");
-			dto.setNome(scanner.nextLine());
-			System.out.println("Digite o sobrenome");
-			dto.setSobrenome(scanner.nextLine());
-			Boolean verificaContato = contatoController.verificaContato(dto);
+			Boolean verificaContato = this.menuDadosPessoais(dto);
 			if(verificaContato) {
+				List<Endereco> menuEndereco = this.menuEndereco(dto);
+				List<Telefone> menuTelefone = this.menuTelefone(dto);
+				Contato adicionarContato = dto.adicionarContato(menuEndereco, menuTelefone);
+				new ContatoController().adicionar(adicionarContato);
 				
-				System.out.println("....::ENDEREÇOS:....");
-				System.out.println("Digite o Logradouro");
-				dto.setLogradouro(scanner.nextLine());
-				System.out.println("Digite o Numero");
-				dto.setNumeroEndereco(scanner.nextLine());
-				System.out.println("Digite o CEP");
-				dto.setCep(scanner.nextLine());
-				System.out.println("Digite a Cidade");
-				dto.setCidade(scanner.nextLine());
-				System.out.println("Digite o Estado:");
-				dto.setEstado(scanner.nextLine());
-				
-				System.out.println("....::TELEFONES:....");
-				System.out.println("Digite DDD da sua cidade:");
-				try {
-					dto.setDdd(scanner.nextLine());
-				} catch (Exception e) {
-					System.out.println("Erro");
-				}
-				System.out.println("Digite o seu Telefone:");
-				dto.setNumeroTelefone(scanner.nextLine());
-				new ContatoController().adicionar(dto);
 				retornoAdiciona=false;
 			}else {
 				System.out.println("Contato Com Nome "+dto.getNome()+" " +dto.getSobrenome()+" já está cadastrado");
@@ -198,6 +177,64 @@ public class AgendaUI {
 			contatoController.removerTodos();
 			System.out.println("Todos os Usuários  foram Removidos Com Sucesso!");
 		}
+	}
+	
+	public Boolean menuDadosPessoais(ContatoDto dto) {
+		System.out.println("....::DADOS PESSOAIS:....");
+		System.out.println("Digite o nome");
+		dto.setNome(scanner.nextLine());
+		System.out.println("Digite o sobrenome");
+		dto.setSobrenome(scanner.nextLine());
+		Boolean verificaContato = contatoController.verificaContato(dto);
+		return verificaContato;
+	}
+	
+	public List<Endereco>  menuEndereco(ContatoDto dto) {
+		List<Endereco> listaEndereco = new ArrayList<Endereco>();
+		String nextLine;
+		do {
+			System.out.println("Deseja adicionar um Endereço?");
+			System.out.println("1-Sim");
+			System.out.println("Qualquer outro valor para voltar ao Menu Pricipal");
+			nextLine = scanner.nextLine();
+			if(nextLine.equals("1")) {
+				System.out.println("....::ENDEREÇOS:....");
+				System.out.println("Digite o Logradouro");
+				dto.setLogradouro(scanner.nextLine());
+				System.out.println("Digite o Numero");
+				dto.setNumeroEndereco(scanner.nextLine());
+				System.out.println("Digite o CEP");
+				dto.setCep(scanner.nextLine());
+				System.out.println("Digite a Cidade");
+				dto.setCidade(scanner.nextLine());
+				System.out.println("Digite o Estado:");
+				dto.setEstado(scanner.nextLine());
+				listaEndereco.add(dto.adicionaEndereco());
+			}
+		}while(nextLine.equals("1"));
+		
+		return listaEndereco;
+	}
+	
+	public List<Telefone> menuTelefone(ContatoDto dto){
+		List<Telefone> listaTelefones = new ArrayList<Telefone>();
+		String nextLine;
+		do {
+			System.out.println("Deseja adicionar um Endereço?");
+			System.out.println("1-Sim");
+			System.out.println("Qualquer outro valor para voltar ao Menu Pricipal");
+			nextLine = scanner.nextLine();
+			if(nextLine.equals("1")) {
+				System.out.println("....::TELEFONES:....");
+				System.out.println("Digite DDD da sua cidade:");
+				dto.setDdd(scanner.nextLine());
+				System.out.println("Digite o seu Telefone:");
+				dto.setNumeroTelefone(scanner.nextLine());
+				listaTelefones.add(dto.adicionaTelefone());
+			}
+			
+		}while(nextLine.equals("1"));
+		return listaTelefones;
 	}
 
 }
