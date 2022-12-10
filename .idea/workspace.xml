@@ -5,12 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="76a12da5-9783-4a6e-8f72-8c4edfa1b4b5" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/App.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/App.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/ContatoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/ContatoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Agenda.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Agenda.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ui/AgendaUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/AgendaUI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -63,7 +58,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1670637215519</updated>
-      <workItem from="1670637217575" duration="608000" />
+      <workItem from="1670637217575" duration="1604000" />
     </task>
     <servers />
   </component>

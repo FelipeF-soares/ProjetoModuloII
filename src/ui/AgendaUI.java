@@ -22,9 +22,9 @@ public class AgendaUI {
             System.out.println("Digite uma opção: ");
             System.out.println("1- Adicionar contato");
             System.out.println("2- Listar todos os contatos");
-            System.out.println("3- Buscar contato por nome");
+            System.out.println("3- Buscar contato");
             System.out.println("4- Remover contato por nome");
-            System.out.println("5- Remover Todos os Contatos");
+            System.out.println("5- Remover todos os contatos");
             System.out.println("0- Sair do sistema");
 
             switch (scanner.nextLine()) {
@@ -47,10 +47,10 @@ public class AgendaUI {
                 	this.menuAtualizar();;
                 }
                 case "0" ->{
-                	System.out.println("Obrigado por utilizar nosso sistema");
+                	System.out.println("Obrigado por utilizar nosso sistema :)");
                 	retornoMenu = false;
                 }
-                default -> System.out.println("Ops, op��o inv�lida!");
+                default -> System.out.println("Ops, opção inválida!");
             }
 			
 		}while(retornoMenu);
@@ -58,12 +58,12 @@ public class AgendaUI {
 	
 	private void menuAtualizar() {
 		do {
-			System.out.println(".:: MEN U PARA EDITAR CONTATO::.");
-            System.out.println("Digite uma op��e: ");
-            System.out.println("1- Adicionar Telefone para Contato");
-            System.out.println("2- Adicionar Endere�o para Contato");
-            System.out.println("3- Remover Telefone para Contato");
-            System.out.println("4- Remover Endere�o para Contato");
+			System.out.println(".:: MENU PARA EDITAR CONTATO::.");
+            System.out.println("Digite uma opção: ");
+            System.out.println("1- Adicionar telefone para contato");
+            System.out.println("2- Adicionar endereço para contato");
+            System.out.println("3- Remover telefone para contato");
+            System.out.println("4- Remover endereço para contato");
             System.out.println("0- Retornar ao menu principal");
 
             switch (scanner.nextLine()) {
@@ -86,10 +86,10 @@ public class AgendaUI {
                 	this.menuAtualizar();;
                 }
                 case "0" ->{
-                	System.out.println("Obrigado por utilizar nosso sistema");
+                	System.out.println("Obrigado por utilizar nosso sistema :)");
                 	retornoMenu = false;
                 }
-                default -> System.out.println("Ops, op��o inv�lida!");
+                default -> System.out.println("Ops, opção inválida!");
             }
 			
 		}while(retornoMenu);
@@ -109,10 +109,10 @@ public class AgendaUI {
 				
 				retornoAdiciona=false;
 			}else {
-				System.out.println("Contato Com Nome "+dto.getNome()+" " +dto.getSobrenome()+" j� est� cadastrado");
-				System.out.println("Deseja Cadastrar outro Contato?");
+				System.out.println("Contato com nome "+dto.getNome()+" " +dto.getSobrenome()+" já está cadastrado");
+				System.out.println("Deseja cadastrar outro contato?");
 				System.out.println("1-Sim");
-				System.out.println("Qualquer outro valor para voltar ao Menu Pricipal");
+				System.out.println("Qualquer outro valor para voltar ao Menu Principal");
 				String nextLine = scanner.nextLine();
 				if(!nextLine.equals("1")) {
 					retornoAdiciona=false;
@@ -125,15 +125,15 @@ public class AgendaUI {
 		ContatoController controller = new ContatoController();
 		List<Contato> listar = controller.listar();
 		if(listar.isEmpty()) {
-			System.out.println("Voc� n�o Possui Contatos em sua Lista");
+			System.out.println("Você não possui contatos em sua lista");
 		}else {
 			for(int i = 0; i < listar.size(); i++) {
-				System.out.println("\n"+(i+1)+"� Contato\n"+"Nome: "+listar.get(i).getNomeCompleto());
+				System.out.println("\n"+(i+1)+"º Contato\n"+"Nome: "+listar.get(i).getNomeCompleto());
 				for(int j = 0; j < listar.get(i).getTelefones().size(); j++) {
-					System.out.println((j+1)+"� Telefone: "+listar.get(i).getTelefoneCompleto(j));
+					System.out.println((j+1)+"º Telefone: "+listar.get(i).getTelefoneCompleto(j));
 				}
 				for(int j = 0; j < listar.get(i).getEnderecos().size();j++) {
-					System.out.println((j+1)+"� Endere�o: "+listar.get(i).getEnderecos().get(j).getLogradouro());
+					System.out.println((j+1)+"º Endereço: "+listar.get(i).getEnderecos().get(j).getLogradouro());
 				}
 			}
 		}
@@ -165,37 +165,37 @@ public class AgendaUI {
 		dto.setSobrenome(scanner.nextLine());
 		if(!contatoController.verificaContato(dto)) {
 			Contato retornaContato = contatoController.retornaContato(dto);
-			System.out.println("O Contato "+retornaContato .getNome()+ " "+retornaContato .getSobrenome()+" Foi localizado!");
-			System.out.println("Deseja Realmente excluir esse conatato?");
+			System.out.println("O contato "+retornaContato .getNome()+ " "+retornaContato .getSobrenome()+" foi localizado!");
+			System.out.println("Deseja realmente excluir esse contato?");
 			System.out.println("1-Sim");
 			System.out.println("Qualquer outro valor para voltar ao Menu Principal");
 			String nextLine = scanner.nextLine();
 			if(nextLine.equals("1")) {
 				contatoController.excluir(retornaContato);
-				System.out.println("Usu�rio Removido Com Sucesso!");
+				System.out.println("Usuário removido com sucesso!");
 			}
 		}else {
-			System.out.println("Usu�rio N�o Localizado No Sistema");
+			System.out.println("Usuário não localizado no sistema");
 		}
 		
 	}
 	
 	public void removerTodosContatos() {
-		System.out.println("Voc� deseja realmente excluir todos os contatos da sua lista?");
+		System.out.println("Você deseja realmente excluir todos os contatos da sua lista?");
 		System.out.println("1-Sim");
-		System.out.println("Qualquer outro valor para voltar ao Menu Pricipal");
+		System.out.println("Qualquer outro valor para voltar ao Menu Principal");
 		String nextLine = scanner.nextLine();
 		if(nextLine.equals("1")) {
 			contatoController.removerTodos();
-			System.out.println("Todos os Usu�rios  foram Removidos Com Sucesso!");
+			System.out.println("Todos os usuários foram removidos com sucesso!");
 		}
 	}
 	
 	public Boolean menuDadosPessoais(ContatoDto dto) {
 		System.out.println("....::DADOS PESSOAIS:....");
-		System.out.println("Digite o nome");
+		System.out.println("Digite o nome: ");
 		dto.setNome(scanner.nextLine());
-		System.out.println("Digite o sobrenome");
+		System.out.println("Digite o sobrenome: ");
 		dto.setSobrenome(scanner.nextLine());
 		Boolean verificaContato = contatoController.verificaContato(dto);
 		return verificaContato;
@@ -205,21 +205,21 @@ public class AgendaUI {
 		List<Endereco> listaEndereco = new ArrayList<Endereco>();
 		String nextLine;
 		do {
-			System.out.println("Deseja adicionar um Endere�o?");
+			System.out.println("Deseja adicionar um endereço?");
 			System.out.println("1-Sim");
-			System.out.println("Qualquer outro valor para voltar ao Menu Pricipal");
+			System.out.println("Qualquer outro valor para voltar ao Menu Principal");
 			nextLine = scanner.nextLine();
 			if(nextLine.equals("1")) {
-				System.out.println("....::ENDERE�OS:....");
-				System.out.println("Digite o Logradouro");
+				System.out.println("....::ENDEREÇOS:....");
+				System.out.println("Digite o logradouro: ");
 				dto.setLogradouro(scanner.nextLine());
-				System.out.println("Digite o Numero");
+				System.out.println("Digite o número: ");
 				dto.setNumeroEndereco(scanner.nextLine());
-				System.out.println("Digite o CEP");
+				System.out.println("Digite o CEP: ");
 				dto.setCep(scanner.nextLine());
-				System.out.println("Digite a Cidade");
+				System.out.println("Digite a cidade: ");
 				dto.setCidade(scanner.nextLine());
-				System.out.println("Digite o Estado:");
+				System.out.println("Digite o estado: ");
 				dto.setEstado(scanner.nextLine());
 				listaEndereco.add(dto.adicionaEndereco());
 			}
@@ -232,15 +232,15 @@ public class AgendaUI {
 		List<Telefone> listaTelefones = new ArrayList<Telefone>();
 		String nextLine;
 		do {
-			System.out.println("Deseja adicionar um Telefone?");
+			System.out.println("Deseja adicionar um telefone?");
 			System.out.println("1-Sim");
-			System.out.println("Qualquer outro valor para voltar ao Menu Pricipal");
+			System.out.println("Qualquer outro valor para voltar ao Menu Principal");
 			nextLine = scanner.nextLine();
 			if(nextLine.equals("1")) {
 				System.out.println("....::TELEFONES:....");
-				System.out.println("Digite DDD da sua cidade:");
+				System.out.println("Digite DDD: ");
 				dto.setDdd(scanner.nextLine());
-				System.out.println("Digite o seu Telefone:");
+				System.out.println("Digite o telefone: ");
 				dto.setNumeroTelefone(scanner.nextLine());
 				listaTelefones.add(dto.adicionaTelefone());
 			}
