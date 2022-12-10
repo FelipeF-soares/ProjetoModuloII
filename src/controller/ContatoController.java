@@ -5,7 +5,6 @@ import java.util.List;
 import dto.ContatoDto;
 import model.Agenda;
 import model.Contato;
-import model.Telefone;
 
 public class ContatoController {
 	

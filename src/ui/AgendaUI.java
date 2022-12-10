@@ -58,7 +58,7 @@ public class AgendaUI {
 	
 	private void menuAtualizar() {
 		do {
-			System.out.println(".:: MENU PARA EDITAR CONTATO::.");
+			System.out.println(".:: MEN U PARA EDITAR CONTATO::.");
             System.out.println("Digite uma opçõe: ");
             System.out.println("1- Adicionar Telefone para Contato");
             System.out.println("2- Adicionar Endereço para Contato");
