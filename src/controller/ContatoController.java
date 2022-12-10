@@ -25,10 +25,10 @@ public class ContatoController {
 		return agenda.verificaContato(nome, sobrenome);
 	}
 	
-	public String buscar(ContatoDto dto) {
-		String nome = dto.getNome();
-		String sobrenome = dto.getSobrenome();
-		return agenda.buscar(nome, sobrenome);
+	public List<Contato> buscar(ContatoDto dto) {
+		String pesquisa = dto.getNome();
+
+		return agenda.buscar(pesquisa);
 	}
 	
 	public Contato retornaContato(ContatoDto dto) {

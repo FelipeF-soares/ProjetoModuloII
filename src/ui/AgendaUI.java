@@ -16,10 +16,10 @@ public class AgendaUI {
 	static Boolean retornoMenu = true; 
 	
 	public void menu() {
-		System.out.println(".:: Boas vindas à sua agenda! ::.");
+		System.out.println(".:: Boas vindas Ã  sua agenda! ::.");
 		do {
 			System.out.println(".:: MENU PRINCIPAL::.");
-            System.out.println("Digite uma opçõe: ");
+            System.out.println("Digite uma opÃ§Ã£o: ");
             System.out.println("1- Adicionar contato");
             System.out.println("2- Listar todos os contatos");
             System.out.println("3- Buscar contato por nome");
@@ -50,7 +50,7 @@ public class AgendaUI {
                 	System.out.println("Obrigado por utilizar nosso sistema");
                 	retornoMenu = false;
                 }
-                default -> System.out.println("Ops, opção inválida!");
+                default -> System.out.println("Ops, opï¿½ï¿½o invï¿½lida!");
             }
 			
 		}while(retornoMenu);
@@ -59,11 +59,11 @@ public class AgendaUI {
 	private void menuAtualizar() {
 		do {
 			System.out.println(".:: MEN U PARA EDITAR CONTATO::.");
-            System.out.println("Digite uma opçõe: ");
+            System.out.println("Digite uma opï¿½ï¿½e: ");
             System.out.println("1- Adicionar Telefone para Contato");
-            System.out.println("2- Adicionar Endereço para Contato");
+            System.out.println("2- Adicionar Endereï¿½o para Contato");
             System.out.println("3- Remover Telefone para Contato");
-            System.out.println("4- Remover Endereço para Contato");
+            System.out.println("4- Remover Endereï¿½o para Contato");
             System.out.println("0- Retornar ao menu principal");
 
             switch (scanner.nextLine()) {
@@ -89,7 +89,7 @@ public class AgendaUI {
                 	System.out.println("Obrigado por utilizar nosso sistema");
                 	retornoMenu = false;
                 }
-                default -> System.out.println("Ops, opção inválida!");
+                default -> System.out.println("Ops, opï¿½ï¿½o invï¿½lida!");
             }
 			
 		}while(retornoMenu);
@@ -109,7 +109,7 @@ public class AgendaUI {
 				
 				retornoAdiciona=false;
 			}else {
-				System.out.println("Contato Com Nome "+dto.getNome()+" " +dto.getSobrenome()+" já está cadastrado");
+				System.out.println("Contato Com Nome "+dto.getNome()+" " +dto.getSobrenome()+" jï¿½ estï¿½ cadastrado");
 				System.out.println("Deseja Cadastrar outro Contato?");
 				System.out.println("1-Sim");
 				System.out.println("Qualquer outro valor para voltar ao Menu Pricipal");
@@ -125,15 +125,15 @@ public class AgendaUI {
 		ContatoController controller = new ContatoController();
 		List<Contato> listar = controller.listar();
 		if(listar.isEmpty()) {
-			System.out.println("Você não Possui Contatos em sua Lista");
+			System.out.println("Vocï¿½ nï¿½o Possui Contatos em sua Lista");
 		}else {
 			for(int i = 0; i < listar.size(); i++) {
-				System.out.println("\n"+(i+1)+"º Contato\n"+"Nome: "+listar.get(i).getNomeCompleto());
+				System.out.println("\n"+(i+1)+"ï¿½ Contato\n"+"Nome: "+listar.get(i).getNomeCompleto());
 				for(int j = 0; j < listar.get(i).getTelefones().size(); j++) {
-					System.out.println((j+1)+"º Telefone: "+listar.get(i).getTelefoneCompleto(j));
+					System.out.println((j+1)+"ï¿½ Telefone: "+listar.get(i).getTelefoneCompleto(j));
 				}
 				for(int j = 0; j < listar.get(i).getEnderecos().size();j++) {
-					System.out.println((j+1)+"º Endereço: "+listar.get(i).getEnderecos().get(j).getLogradouro());
+					System.out.println((j+1)+"ï¿½ Endereï¿½o: "+listar.get(i).getEnderecos().get(j).getLogradouro());
 				}
 			}
 		}
@@ -142,11 +142,19 @@ public class AgendaUI {
 	
 	public void buscarPorNome() {
 		ContatoDto dto = new ContatoDto();
-		System.out.println("Digite o nome");
-		dto.setNome(scanner.nextLine());
-		System.out.println("Digite o sobrenome");
-		dto.setSobrenome(scanner.nextLine());
-		System.out.println(contatoController.buscar(dto));
+
+		System.out.println("Digite o termo pelo qual deseja buscar: ");
+		String pesquisa = scanner.nextLine();
+		dto.setNome(pesquisa);
+
+		List<Contato> busca = contatoController.buscar(dto);
+		if(busca.isEmpty()) {
+			System.out.println("Ops, nÃ£o hÃ¡ contatos correspondentes ao termo buscado.");
+		} else {
+			busca.forEach(contato -> {
+				System.out.println(contato.toString());
+			});
+		}
 	}
 	
 	public void removerPorNome() {
@@ -164,22 +172,22 @@ public class AgendaUI {
 			String nextLine = scanner.nextLine();
 			if(nextLine.equals("1")) {
 				contatoController.excluir(retornaContato);
-				System.out.println("Usuário Removido Com Sucesso!");
+				System.out.println("Usuï¿½rio Removido Com Sucesso!");
 			}
 		}else {
-			System.out.println("Usuário Não Localizado No Sistema");
+			System.out.println("Usuï¿½rio Nï¿½o Localizado No Sistema");
 		}
 		
 	}
 	
 	public void removerTodosContatos() {
-		System.out.println("Você deseja realmente excluir todos os contatos da sua lista?");
+		System.out.println("Vocï¿½ deseja realmente excluir todos os contatos da sua lista?");
 		System.out.println("1-Sim");
 		System.out.println("Qualquer outro valor para voltar ao Menu Pricipal");
 		String nextLine = scanner.nextLine();
 		if(nextLine.equals("1")) {
 			contatoController.removerTodos();
-			System.out.println("Todos os Usuários  foram Removidos Com Sucesso!");
+			System.out.println("Todos os Usuï¿½rios  foram Removidos Com Sucesso!");
 		}
 	}
 	
@@ -197,12 +205,12 @@ public class AgendaUI {
 		List<Endereco> listaEndereco = new ArrayList<Endereco>();
 		String nextLine;
 		do {
-			System.out.println("Deseja adicionar um Endereço?");
+			System.out.println("Deseja adicionar um Endereï¿½o?");
 			System.out.println("1-Sim");
 			System.out.println("Qualquer outro valor para voltar ao Menu Pricipal");
 			nextLine = scanner.nextLine();
 			if(nextLine.equals("1")) {
-				System.out.println("....::ENDEREÇOS:....");
+				System.out.println("....::ENDEREï¿½OS:....");
 				System.out.println("Digite o Logradouro");
 				dto.setLogradouro(scanner.nextLine());
 				System.out.println("Digite o Numero");

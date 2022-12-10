@@ -28,15 +28,17 @@ public class Agenda {
     	return contatos;
     }
     //Busca um por nome retorna o toString contato localizado
-    public String buscar(String nome, String sobrenome) {
+    public List<Contato> buscar(String pesquisa) {
     	List<Contato> listarContatos = this.listar();
+        List<Contato> contatosBuscados = new ArrayList<>();
+
     	for(int i = 0; i < listarContatos.size(); i++) {
-    		if(listarContatos.get(i).getNome().equals(nome.toUpperCase().trim()) && listarContatos.get(i).getSobrenome().equals(sobrenome.toUpperCase().trim())) {
-    			Contato contato = listarContatos.get(i);
-    			return "Nome: " + contato.getNome() +" "+ contato.getSobrenome();
-    		}
+            if(listarContatos.get(i).getNomeCompleto().toUpperCase().trim().contains(pesquisa)) {
+                contatosBuscados.add(listarContatos.get(i));
+            }
     	}
-    	return "Contato não Localizado";
+
+        return contatosBuscados;
     }
     
     //verifica se o contato foi localizado
