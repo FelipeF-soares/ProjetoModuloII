@@ -16,16 +16,7 @@ public class Telefone {
 		return numeroTelefone;
 	}
 	public void setNumeroTelefone(String numeroTelefone) {
-		boolean seguePadrao = (numeroTelefone.matches("\\d\\d\\d\\d\\d-\\d\\d\\d\\d") ||
-				numeroTelefone.matches("\\d\\d\\d\\d\\d\\d\\d\\d\\d") ||
-				numeroTelefone.matches("\\d\\d\\d\\d-\\d\\d\\d\\d") ||
-				numeroTelefone.matches("\\d\\d\\d\\d\\d\\d\\d\\d")
-				);
-		if(seguePadrao){
-			this.numeroTelefone = numeroTelefone;
-		} else {
-			throw new IllegalArgumentException("Nº do telefone deve ter 8 ou 9 números, com ou sem hífen");
-		}
+		this.numeroTelefone = numeroTelefone;
 	}
 	
 	@Override

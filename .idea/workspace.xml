@@ -6,8 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="76a12da5-9783-4a6e-8f72-8c4edfa1b4b5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/dto/ContatoDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/dto/ContatoDto.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/model/Contato.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/model/Contato.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/model/Telefone.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/model/Telefone.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/ui/AgendaUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/ui/AgendaUI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dto/ContatoDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dto/ContatoDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Endereco.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Endereco.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/model/Telefone.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Telefone.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ui/AgendaUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/AgendaUI.java" afterDir="false" />
     </list>
@@ -86,6 +90,17 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/ui/AgendaUI.java</url>
+          <line>290</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

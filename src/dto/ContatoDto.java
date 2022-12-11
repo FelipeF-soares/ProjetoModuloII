@@ -66,7 +66,14 @@ public class ContatoDto {
 		return cep;
 	}
 	public void setCep(String cep) {
-		this.cep = cep;
+		boolean seguePadrao = (cep.matches("\\d\\d\\d\\d\\d-\\d\\d\\d") ||
+				cep.matches("\\d\\d\\d\\d\\d\\d\\d\\d")
+		);
+		if(seguePadrao){
+			this.cep = cep;
+		} else {
+			throw new IllegalArgumentException("Nº do cep deve ter 8 números, com ou sem hífen");
+		}
 	}
 	public String getLogradouro() {
 		return logradouro;
@@ -96,13 +103,27 @@ public class ContatoDto {
 		return ddd;
 	}
 	public void setDdd(String ddd){
-		this.ddd = ddd;
+		boolean seguePadrao = (ddd.matches("\\d\\d"));
+		if(seguePadrao){
+			this.ddd = ddd;
+		} else {
+			throw new IllegalArgumentException("DDD do telefone deve ter 2 números");
+		}
 	}
 	public String getNumeroTelefone() {
 		return numeroTelefone;
 	}
 	public void setNumeroTelefone(String numeroTelefone) {
-		this.numeroTelefone = numeroTelefone;
+		boolean seguePadrao = (numeroTelefone.matches("\\d\\d\\d\\d\\d-\\d\\d\\d\\d") ||
+				numeroTelefone.matches("\\d\\d\\d\\d\\d\\d\\d\\d\\d") ||
+				numeroTelefone.matches("\\d\\d\\d\\d-\\d\\d\\d\\d") ||
+				numeroTelefone.matches("\\d\\d\\d\\d\\d\\d\\d\\d")
+		);
+		if(seguePadrao){
+			this.numeroTelefone = numeroTelefone;
+		} else {
+			throw new IllegalArgumentException("Nº do telefone deve ter 8 ou 9 números, com ou sem hífen");
+		}
 	}
 
 }

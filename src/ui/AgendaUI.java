@@ -197,16 +197,7 @@ public class AgendaUI {
 		scanner.nextLine();
 		Contato contato = contatoController.getContato(indexContato);
 
-		Boolean done = false;
-
-		do{
-			try{
-				contato.setTelefones(this.menuTelefone(dto, contato.getTelefones()));
-				done=true;
-			} catch (IllegalArgumentException  ex){
-				System.out.printf("[ERRO] %s\n", ex.getMessage());
-			}
-		} while(!done);
+		contato.setTelefones(this.menuTelefone(dto, contato.getTelefones()));
 
 		contatoController.editar(indexContato, contato);
 
@@ -238,42 +229,51 @@ public class AgendaUI {
 	}
 	
 	public List<Endereco>  menuEndereco(ContatoDto dto, List<Endereco> listaEndereco) {
+		boolean done=false;
 		String nextLine;
 		do {
 			System.out.println("Deseja adicionar um endereço?");
 			System.out.println("1-Sim");
 			System.out.println("Qualquer outro valor para voltar ao Menu Principal");
 			nextLine = scanner.nextLine();
-			if(nextLine.equals("1")) {
-				System.out.println("....::ENDEREÇOS:....");
-				System.out.println("Digite o logradouro: ");
-				dto.setLogradouro(scanner.nextLine());
-				System.out.println("Digite o número: ");
-				dto.setNumeroEndereco(scanner.nextLine());
-				System.out.println("Digite o CEP: ");
-				dto.setCep(scanner.nextLine());
-				System.out.println("Digite a cidade: ");
-				dto.setCidade(scanner.nextLine());
-				System.out.println("Digite o estado: ");
-				dto.setEstado(scanner.nextLine());
-				listaEndereco.add(dto.adicionaEndereco());
+
+			done = false;
+			try{
+				if(nextLine.equals("1")) {
+					System.out.println("....::ENDEREÇOS:....");
+					System.out.println("Digite o logradouro: ");
+					dto.setLogradouro(scanner.nextLine());
+					System.out.println("Digite o número: ");
+					dto.setNumeroEndereco(scanner.nextLine());
+					System.out.println("Digite o CEP: ");
+					dto.setCep(scanner.nextLine());
+					System.out.println("Digite a cidade: ");
+					dto.setCidade(scanner.nextLine());
+					System.out.println("Digite o estado: ");
+					dto.setEstado(scanner.nextLine());
+					listaEndereco.add(dto.adicionaEndereco());
+				}
+				done=true;
+			} catch (Exception ex){
+				System.out.printf("[ERRO] %s\n", ex.getMessage());
 			}
-		}while(nextLine.equals("1"));
+		}while(nextLine.equals("1") || !done);
 		
 		return listaEndereco;
 	}
 	
 	public List<Telefone> menuTelefone(ContatoDto dto, List<Telefone> listaTelefones){
-		boolean done;
+		boolean done=false;
 
 		String nextLine = null;
 		do {
+			System.out.println("Deseja adicionar um telefone?");
+			System.out.println("1-Sim");
+			System.out.println("Qualquer outro valor para voltar ao Menu Principal");
+			nextLine = scanner.nextLine();
+
 			done = false;
 			try{
-				System.out.println("Deseja adicionar um telefone?");
-				System.out.println("1-Sim");
-				System.out.println("Qualquer outro valor para voltar ao Menu Principal");
-				nextLine = scanner.nextLine();
 				if(nextLine.equals("1")) {
 					System.out.println("....::TELEFONES:....");
 					System.out.println("Digite DDD: ");
@@ -287,7 +287,7 @@ public class AgendaUI {
 				System.out.printf("[ERRO] %s\n", ex.getMessage());
 			}
 			
-		}while(Objects.equals(nextLine, "1") && !done);
+		}while(nextLine.equals("1") || !done);
 		return listaTelefones;
 	}
 
