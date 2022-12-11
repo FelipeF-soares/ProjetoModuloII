@@ -265,7 +265,7 @@ public class AgendaUI {
 					dto.setCidade(scanner.nextLine());
 					System.out.println("Digite o estado: ");
 					dto.setEstado(scanner.nextLine());
-					listaEndereco.add(dto.adicionaEndereco());
+					listaEndereco.add(dto.adicionaEndereco(listaEndereco));
 				}
 				done=true;
 			} catch (Exception ex){
@@ -294,7 +294,7 @@ public class AgendaUI {
 					dto.setDdd(scanner.nextLine());
 					System.out.println("Digite o telefone: ");
 					dto.setNumeroTelefone(scanner.nextLine());
-					listaTelefones.add(dto.adicionaTelefone());
+					listaTelefones.add(dto.adicionaTelefone(listaTelefones));
 				}
 				done = true;
 			} catch (Exception  ex){

@@ -30,20 +30,46 @@ public class ContatoDto {
 		 return contato; 
 	 }
 	 
-	 public Endereco adicionaEndereco() {
+	 public Endereco adicionaEndereco(List<Endereco> listaEndereco) {
 		 Endereco endereco = new Endereco(); 
 		 endereco.setLogradouro(logradouro);
 		 endereco.setNumeroEndereco(numeroEndereco);
 		 endereco.setCep(cep);
 		 endereco.setCidade(cidade);
 		 endereco.setEstado(estado);
+		 int count=0;
+
+		 if(listaEndereco != null && !listaEndereco.isEmpty()){
+			 for (int i=0; i<listaEndereco.size(); i++){
+				 if(endereco.equals(listaEndereco.get(i))){
+					 count++;
+				 }
+			 }
+		 }
+		 if(count>0){
+			 throw new IllegalArgumentException("[ERRO] Endereço  já existe!\n");
+		 }
+
 		 return endereco;
 	 }
 	 
-	 public Telefone adicionaTelefone(){
+	 public Telefone adicionaTelefone(List<Telefone> listaTelefones){
 		 Telefone telefone = new Telefone();
 		 telefone.setDdd(ddd);
 		 telefone.setNumeroTelefone(numeroTelefone);
+		 int count=0;
+
+		 if(listaTelefones != null && !listaTelefones.isEmpty()){
+			 for (int i=0; i<listaTelefones.size(); i++){
+				 if(telefone.equals(listaTelefones.get(i))){
+					 count++;
+				 }
+			 }
+		 }
+		 if(count>0){
+			 throw new IllegalArgumentException("[ERRO] Telefone  já existe!\n");
+		 }
+
 		 return telefone;
 	 }
 	 
