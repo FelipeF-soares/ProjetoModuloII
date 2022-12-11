@@ -13,6 +13,14 @@ public class ContatoController {
 	public void adicionar(Contato contato) {
 		agenda.adicionar(contato);
 	}
+	public Contato getContato(Integer index){
+		return agenda.getContato(index);
+	}
+
+	public void editar(Integer index, Contato contato){
+		agenda.editar(index, contato);
+
+	}
 	
 	public List<Contato>  listar() {
 		List<Contato> listar = agenda.listar();

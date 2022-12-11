@@ -2,6 +2,7 @@ package dto;
 
 import java.util.List;
 
+import model.Agenda;
 import model.Contato;
 import model.Endereco;
 import model.Telefone;

@@ -18,6 +18,9 @@ public class Agenda {
     public void adicionar(Contato contato) {
         this.contatos.add(contato);
     }
+    public void editar(Integer index, Contato contato) {
+        this.contatos.set(index, contato);
+    }
 
     public void excluir(Contato contato) {
         contatos.remove(contato);
@@ -67,4 +70,10 @@ public class Agenda {
         contatos.clear();
     }
 
+    public Contato getContato(Integer index) {
+        return contatos.get(index);
+    }
+    public void setContato(Integer index, Contato contato) {
+        contatos.set(index, contato);
+    }
 }

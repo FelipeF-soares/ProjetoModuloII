@@ -25,6 +25,7 @@ public class AgendaUI {
             System.out.println("3- Buscar contato");
             System.out.println("4- Remover contato por nome");
             System.out.println("5- Remover todos os contatos");
+            System.out.println("6- Editar contatos");
             System.out.println("0- Sair do sistema");
 
             switch (scanner.nextLine()) {
@@ -57,6 +58,7 @@ public class AgendaUI {
 	}
 	
 	private void menuAtualizar() {
+		Boolean retornoMenuAtualizar = true;
 		do {
 			System.out.println(".:: MENU PARA EDITAR CONTATO::.");
             System.out.println("Digite uma opção: ");
@@ -67,32 +69,25 @@ public class AgendaUI {
             System.out.println("0- Retornar ao menu principal");
 
             switch (scanner.nextLine()) {
-                case "1" -> {
-                    this.adicionar();
-                }
-                case "2" -> {
-                    this.listar();
-                }
-                case "3" ->{
-                	this.buscarPorNome();
-                }
-                case "4" ->{
-                	this.removerPorNome();;
-                }
-                case "5" ->{
-                	this.removerTodosContatos();;
-                }
-                case "6" ->{
-                	this.menuAtualizar();;
-                }
-                case "0" ->{
-                	System.out.println("Obrigado por utilizar nosso sistema :)");
-                	retornoMenu = false;
-                }
-                default -> System.out.println("Ops, opção inválida!");
-            }
-			
-		}while(retornoMenu);
+				case "1" -> {
+					this.adicionarTelefone();
+				}
+				case "2" -> {
+					this.listar();
+				}
+				case "3" -> {
+					this.buscarPorNome();
+				}
+				case "4" -> {
+					this.removerPorNome();
+					;
+				}
+				case "0" -> {
+					retornoMenuAtualizar = false;
+				}
+				default -> System.out.println("Ops, opção inválida!");
+			}
+		}while(retornoMenuAtualizar);
 		
 	}
 
@@ -103,7 +98,7 @@ public class AgendaUI {
 			Boolean verificaContato = this.menuDadosPessoais(dto);
 			if(verificaContato) {
 				List<Endereco> menuEndereco = this.menuEndereco(dto);
-				List<Telefone> menuTelefone = this.menuTelefone(dto);
+				List<Telefone> menuTelefone = this.menuTelefone(dto, new ArrayList<Telefone>());
 				Contato adicionarContato = dto.adicionarContato(menuEndereco, menuTelefone);
 				new ContatoController().adicionar(adicionarContato);
 				
@@ -190,6 +185,22 @@ public class AgendaUI {
 			System.out.println("Todos os usuários foram removidos com sucesso!");
 		}
 	}
+
+	public void adicionarTelefone(){
+		System.out.println("....::ADIÇÃO DE TELEFONE(S):....");
+		System.out.println("Insira o índice do contato que deseja adicionar telefone(s):");
+		Integer indexContato = scanner.nextInt();
+
+		ContatoDto dto = new ContatoDto();
+
+		scanner.nextLine();
+		Contato contato = contatoController.getContato(indexContato);
+
+		contato.setTelefones(this.menuTelefone(dto, contato.getTelefones()));
+
+		contatoController.editar(indexContato, contato);
+
+	}
 	
 	public Boolean menuDadosPessoais(ContatoDto dto) {
 		System.out.println("....::DADOS PESSOAIS:....");
@@ -228,8 +239,7 @@ public class AgendaUI {
 		return listaEndereco;
 	}
 	
-	public List<Telefone> menuTelefone(ContatoDto dto){
-		List<Telefone> listaTelefones = new ArrayList<Telefone>();
+	public List<Telefone> menuTelefone(ContatoDto dto, List<Telefone> listaTelefones){
 		String nextLine;
 		do {
 			System.out.println("Deseja adicionar um telefone?");

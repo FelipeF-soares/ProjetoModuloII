@@ -5,7 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="76a12da5-9783-4a6e-8f72-8c4edfa1b4b5" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/controller/ContatoController.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/controller/ContatoController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/dto/ContatoDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/dto/ContatoDto.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/model/Agenda.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/model/Agenda.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/model/Contato.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/model/Contato.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/model/Endereco.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/model/Endereco.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/model/Telefone.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/model/Telefone.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/ui/AgendaUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/ui/AgendaUI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/projetoII-agenda.iml" beforeDir="false" afterPath="$PROJECT_DIR$/projetoII-agenda.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/ContatoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/ContatoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dto/ContatoDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dto/ContatoDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Agenda.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Agenda.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ui/AgendaUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/AgendaUI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -29,10 +41,15 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/media/thicosta/HD externo/0-Metas/E-Extracurricular/E.3-Cursos/santander-bolsas/lets-code/curso-completo/02_program-OO-I/ProjetoModuloII",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "configurable.group.appearance",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -64,5 +81,20 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
