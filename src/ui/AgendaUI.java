@@ -73,7 +73,7 @@ public class AgendaUI {
 					this.adicionarTelefone();
 				}
 				case "2" -> {
-					this.listar();
+					this.adicionarEndereco();
 				}
 				case "3" -> {
 					this.buscarPorNome();
@@ -97,7 +97,7 @@ public class AgendaUI {
 		do {
 			Boolean verificaContato = this.menuDadosPessoais(dto);
 			if(verificaContato) {
-				List<Endereco> menuEndereco = this.menuEndereco(dto);
+				List<Endereco> menuEndereco = this.menuEndereco(dto, new ArrayList<Endereco>());
 				List<Telefone> menuTelefone = this.menuTelefone(dto, new ArrayList<Telefone>());
 				Contato adicionarContato = dto.adicionarContato(menuEndereco, menuTelefone);
 				new ContatoController().adicionar(adicionarContato);
@@ -201,6 +201,21 @@ public class AgendaUI {
 		contatoController.editar(indexContato, contato);
 
 	}
+	public void adicionarEndereco(){
+		System.out.println("....::ADIÇÃO DE ENDEREÇO(S):....");
+		System.out.println("Insira o índice do contato que deseja adicionar endereço(s):");
+		Integer indexContato = scanner.nextInt();
+
+		ContatoDto dto = new ContatoDto();
+
+		scanner.nextLine();
+		Contato contato = contatoController.getContato(indexContato);
+
+		contato.setEnderecos(this.menuEndereco(dto, contato.getEnderecos()));
+
+		contatoController.editar(indexContato, contato);
+
+	}
 	
 	public Boolean menuDadosPessoais(ContatoDto dto) {
 		System.out.println("....::DADOS PESSOAIS:....");
@@ -212,8 +227,7 @@ public class AgendaUI {
 		return verificaContato;
 	}
 	
-	public List<Endereco>  menuEndereco(ContatoDto dto) {
-		List<Endereco> listaEndereco = new ArrayList<Endereco>();
+	public List<Endereco>  menuEndereco(ContatoDto dto, List<Endereco> listaEndereco) {
 		String nextLine;
 		do {
 			System.out.println("Deseja adicionar um endereço?");
