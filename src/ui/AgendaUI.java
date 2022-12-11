@@ -2,7 +2,6 @@ package ui;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Scanner;
 
 import controller.ContatoController;
@@ -30,24 +29,12 @@ public class AgendaUI {
             System.out.println("0- Sair do sistema");
 
             switch (scanner.nextLine()) {
-                case "1" -> {
-                    this.adicionar();
-                }
-                case "2" -> {
-                    this.listar();
-                }
-                case "3" ->{
-                	this.buscarPorNome();
-                }
-                case "4" ->{
-                	this.removerPorNome();;
-                }
-                case "5" ->{
-                	this.removerTodosContatos();;
-                }
-                case "6" ->{
-                	this.menuAtualizar();;
-                }
+                case "1" -> this.adicionar();
+                case "2" -> this.listar();
+                case "3" -> this.buscarPorNome();
+                case "4" -> this.removerPorNome();
+                case "5" -> this.removerTodosContatos();
+                case "6" -> this.menuAtualizar();
                 case "0" ->{
                 	System.out.println("Obrigado por utilizar nosso sistema :)");
                 	retornoMenu = false;
@@ -70,22 +57,11 @@ public class AgendaUI {
             System.out.println("0- Retornar ao menu principal");
 
             switch (scanner.nextLine()) {
-				case "1" -> {
-					this.adicionarTelefone();
-				}
-				case "2" -> {
-					this.adicionarEndereco();
-				}
-				case "3" -> {
-					this.buscarPorNome();
-				}
-				case "4" -> {
-					this.removerPorNome();
-					;
-				}
-				case "0" -> {
-					retornoMenuAtualizar = false;
-				}
+				case "1" -> this.adicionarTelefone();
+				case "2" -> this.adicionarEndereco();
+				case "3" -> this.removerTelefone();
+				case "4" -> this.removerEndereco();
+				case "0" -> retornoMenuAtualizar = false;
 				default -> System.out.println("Ops, opção inválida!");
 			}
 		}while(retornoMenuAtualizar);
@@ -135,7 +111,7 @@ public class AgendaUI {
 		}
 		System.out.println("\n");
 	}
-	
+
 	public void buscarPorNome() {
 		ContatoDto dto = new ContatoDto();
 
@@ -147,9 +123,7 @@ public class AgendaUI {
 		if(busca.isEmpty()) {
 			System.out.println("Ops, não há contatos correspondentes ao termo buscado.");
 		} else {
-			busca.forEach(contato -> {
-				System.out.println(contato.toString());
-			});
+			busca.forEach(contato -> System.out.println(contato.toString()));
 		}
 	}
 	
@@ -202,6 +176,26 @@ public class AgendaUI {
 		contatoController.editar(indexContato, contato);
 
 	}
+
+	public void removerTelefone(){
+		System.out.println("Nos informe o id do contato que você deseja remover um número de telefone:");
+		int indexContato = scanner.nextInt();
+		scanner.nextLine();
+
+		Contato contato = contatoController.getContato(indexContato);
+
+		// Printar lista de telefones desse contato para pessoa escolher
+
+		System.out.println("Nos informe o id do nº de telefone que você deseja excluir:");
+		int indexTelefone = scanner.nextInt();
+		scanner.nextLine();
+
+		String telefoneExcluido = contatoController.getContato(indexContato).getTelefoneCompleto(indexTelefone);
+
+		contatoController.removerTelefone(indexContato, indexTelefone);
+
+		System.out.printf("Telefone '%s' excluído com sucesso!\n", telefoneExcluido);
+	}
 	public void adicionarEndereco(){
 		System.out.println("....::ADIÇÃO DE ENDEREÇO(S):....");
 		System.out.println("Insira o índice do contato que deseja adicionar endereço(s):");
@@ -217,6 +211,27 @@ public class AgendaUI {
 		contatoController.editar(indexContato, contato);
 
 	}
+
+	public void removerEndereco(){
+		System.out.println("Nos informe o id do contato que você deseja remover o endereço:");
+		int indexContato = scanner.nextInt();
+		scanner.nextLine();
+
+		Contato contato = contatoController.getContato(indexContato);
+
+		// Printar lista de endereços desse contato para pessoa escolher qual excluir
+
+		System.out.println("Nos informe o id do endereço que você deseja excluir:");
+		int indexEndereco = scanner.nextInt();
+		scanner.nextLine();
+
+		String enderecoExcluido =
+				contatoController.getContato(indexContato).getEnderecos().get(indexEndereco).toString();
+
+		contatoController.removerEndereco(indexContato, indexEndereco);
+
+		System.out.printf("Endereço '%s' excluído com sucesso!\n", enderecoExcluido);
+	}
 	
 	public Boolean menuDadosPessoais(ContatoDto dto) {
 		System.out.println("....::DADOS PESSOAIS:....");
@@ -224,12 +239,11 @@ public class AgendaUI {
 		dto.setNome(scanner.nextLine());
 		System.out.println("Digite o sobrenome: ");
 		dto.setSobrenome(scanner.nextLine());
-		Boolean verificaContato = contatoController.verificaContato(dto);
-		return verificaContato;
+		return contatoController.verificaContato(dto);
 	}
 	
 	public List<Endereco>  menuEndereco(ContatoDto dto, List<Endereco> listaEndereco) {
-		boolean done=false;
+		boolean done;
 		String nextLine;
 		do {
 			System.out.println("Deseja adicionar um endereço?");
@@ -263,9 +277,9 @@ public class AgendaUI {
 	}
 	
 	public List<Telefone> menuTelefone(ContatoDto dto, List<Telefone> listaTelefones){
-		boolean done=false;
+		boolean done;
 
-		String nextLine = null;
+		String nextLine;
 		do {
 			System.out.println("Deseja adicionar um telefone?");
 			System.out.println("1-Sim");
