@@ -2,6 +2,7 @@ package ui;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 import controller.ContatoController;
@@ -196,7 +197,16 @@ public class AgendaUI {
 		scanner.nextLine();
 		Contato contato = contatoController.getContato(indexContato);
 
-		contato.setTelefones(this.menuTelefone(dto, contato.getTelefones()));
+		Boolean done = false;
+
+		do{
+			try{
+				contato.setTelefones(this.menuTelefone(dto, contato.getTelefones()));
+				done=true;
+			} catch (IllegalArgumentException  ex){
+				System.out.printf("[ERRO] %s\n", ex.getMessage());
+			}
+		} while(!done);
 
 		contatoController.editar(indexContato, contato);
 
@@ -254,22 +264,30 @@ public class AgendaUI {
 	}
 	
 	public List<Telefone> menuTelefone(ContatoDto dto, List<Telefone> listaTelefones){
-		String nextLine;
+		boolean done;
+
+		String nextLine = null;
 		do {
-			System.out.println("Deseja adicionar um telefone?");
-			System.out.println("1-Sim");
-			System.out.println("Qualquer outro valor para voltar ao Menu Principal");
-			nextLine = scanner.nextLine();
-			if(nextLine.equals("1")) {
-				System.out.println("....::TELEFONES:....");
-				System.out.println("Digite DDD: ");
-				dto.setDdd(scanner.nextLine());
-				System.out.println("Digite o telefone: ");
-				dto.setNumeroTelefone(scanner.nextLine());
-				listaTelefones.add(dto.adicionaTelefone());
+			done = false;
+			try{
+				System.out.println("Deseja adicionar um telefone?");
+				System.out.println("1-Sim");
+				System.out.println("Qualquer outro valor para voltar ao Menu Principal");
+				nextLine = scanner.nextLine();
+				if(nextLine.equals("1")) {
+					System.out.println("....::TELEFONES:....");
+					System.out.println("Digite DDD: ");
+					dto.setDdd(scanner.nextLine());
+					System.out.println("Digite o telefone: ");
+					dto.setNumeroTelefone(scanner.nextLine());
+					listaTelefones.add(dto.adicionaTelefone());
+				}
+				done = true;
+			} catch (Exception  ex){
+				System.out.printf("[ERRO] %s\n", ex.getMessage());
 			}
 			
-		}while(nextLine.equals("1"));
+		}while(Objects.equals(nextLine, "1") && !done);
 		return listaTelefones;
 	}
 
