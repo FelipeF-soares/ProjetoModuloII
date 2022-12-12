@@ -2,6 +2,7 @@ package dto;
 
 import java.util.List;
 
+import erros.ValorVazioError;
 import model.Agenda;
 import model.Contato;
 import model.Endereco;
@@ -72,15 +73,17 @@ public class ContatoDto {
 
 		 return telefone;
 	 }
-	 
-	 
-	
-	 
+	  
 	public String getNome() {
 		return nome;
 	}
-	public void setNome(String nome) {
-		this.nome = nome.toUpperCase().trim();
+	public void setNome(String nome) throws ValorVazioError {
+		if(nome.isBlank()|| nome.isEmpty()) {
+			throw new ValorVazioError();
+		}else {
+			this.nome = nome.toUpperCase().trim();
+		}
+		
 	}
 	public String getSobrenome() {
 		return sobrenome;

@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import controller.ContatoController;
 import dto.ContatoDto;
+import erros.ValorVazioError;
 import model.Contato;
 import model.Endereco;
 import model.Telefone;
@@ -15,7 +16,7 @@ public class AgendaUI {
 	static ContatoController contatoController =  new ContatoController();
 	static Boolean retornoMenu = true; 
 	
-	public void menu() {
+	public void menu(){
 		System.out.println(".:: Boas vindas à sua agenda! ::.");
 		do {
 			System.out.println(".:: MENU PRINCIPAL::.");
@@ -68,23 +69,23 @@ public class AgendaUI {
 		
 	}
 
-	public void adicionar() {
+	public void adicionar(){
 		ContatoDto dto = new ContatoDto();
 		Boolean retornoAdiciona = true;
 		do {
-			Boolean verificaContato = this.menuDadosPessoais(dto);
+			Boolean verificaContato;
+					verificaContato = this.menuDadosPessoais(dto);
 			if(verificaContato) {
 				List<Endereco> menuEndereco = this.menuEndereco(dto, new ArrayList<Endereco>());
 				List<Telefone> menuTelefone = this.menuTelefone(dto, new ArrayList<Telefone>());
 				Contato adicionarContato = dto.adicionarContato(menuEndereco, menuTelefone);
 				new ContatoController().adicionar(adicionarContato);
-				
 				retornoAdiciona=false;
-			}else {
+			}else if(verificaContato) {
 				System.out.println("Contato com nome "+dto.getNome()+" " +dto.getSobrenome()+" já está cadastrado");
 				System.out.println("Deseja cadastrar outro contato?");
 				System.out.println("1-Sim");
-				System.out.println("Qualquer outro valor para voltar ao Menu Principal");
+				System.out.println("2-Não");
 				String nextLine = scanner.nextLine();
 				if(!nextLine.equals("1")) {
 					retornoAdiciona=false;
@@ -112,13 +113,16 @@ public class AgendaUI {
 		System.out.println("\n");
 	}
 
-	public void buscarPorNome() {
+	public void buscarPorNome(){
 		ContatoDto dto = new ContatoDto();
 
 		System.out.println("Digite o termo pelo qual deseja buscar: ");
 		String pesquisa = scanner.nextLine();
-		dto.setNome(pesquisa);
-
+		try {
+			dto.setNome(pesquisa);
+		} catch (ValorVazioError e) {
+			e.printStackTrace();
+		}
 		List<Contato> busca = contatoController.buscar(dto);
 		if(busca.isEmpty()) {
 			System.out.println("Ops, não há contatos correspondentes ao termo buscado.");
@@ -127,10 +131,14 @@ public class AgendaUI {
 		}
 	}
 	
-	public void removerPorNome() {
+	public void removerPorNome(){
 		ContatoDto dto = new ContatoDto();
 		System.out.println("Digite o nome");
-		dto.setNome(scanner.nextLine());
+		try {
+			dto.setNome(scanner.nextLine());
+		} catch (ValorVazioError e) {
+			e.printStackTrace();
+		}
 		System.out.println("Digite o sobrenome");
 		dto.setSobrenome(scanner.nextLine());
 		if(!contatoController.verificaContato(dto)) {
@@ -138,7 +146,7 @@ public class AgendaUI {
 			System.out.println("O contato "+retornaContato .getNome()+ " "+retornaContato .getSobrenome()+" foi localizado!");
 			System.out.println("Deseja realmente excluir esse contato?");
 			System.out.println("1-Sim");
-			System.out.println("Qualquer outro valor para voltar ao Menu Principal");
+			System.out.println("2-Não");
 			String nextLine = scanner.nextLine();
 			if(nextLine.equals("1")) {
 				contatoController.excluir(retornaContato);
@@ -234,12 +242,23 @@ public class AgendaUI {
 	}
 	
 	public Boolean menuDadosPessoais(ContatoDto dto) {
-		System.out.println("....::DADOS PESSOAIS:....");
-		System.out.println("Digite o nome: ");
-		dto.setNome(scanner.nextLine());
-		System.out.println("Digite o sobrenome: ");
-		dto.setSobrenome(scanner.nextLine());
-		return contatoController.verificaContato(dto);
+	Boolean repete = true;
+	do {
+		try {
+			System.out.println("....::DADOS PESSOAIS:....");
+			System.out.println("Digite o nome: ");
+			dto.setNome(scanner.nextLine());
+			System.out.println("Digite o sobrenome: ");
+			dto.setSobrenome(scanner.nextLine());
+			repete=false;
+			
+		} catch (ValorVazioError e) {
+			System.out.println(e.getMessage()+"\n");
+			repete=true;
+		}
+	}while(repete);
+		
+	return contatoController.verificaContato(dto);
 	}
 	
 	public List<Endereco>  menuEndereco(ContatoDto dto, List<Endereco> listaEndereco) {
@@ -248,7 +267,7 @@ public class AgendaUI {
 		do {
 			System.out.println("Deseja adicionar um endereço?");
 			System.out.println("1-Sim");
-			System.out.println("Qualquer outro valor para voltar ao Menu Principal");
+			System.out.println("2-Não");
 			nextLine = scanner.nextLine();
 
 			done = false;
@@ -283,7 +302,7 @@ public class AgendaUI {
 		do {
 			System.out.println("Deseja adicionar um telefone?");
 			System.out.println("1-Sim");
-			System.out.println("Qualquer outro valor para voltar ao Menu Principal");
+			System.out.println("2-Não");
 			nextLine = scanner.nextLine();
 
 			done = false;
