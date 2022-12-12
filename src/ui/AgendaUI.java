@@ -113,6 +113,24 @@ public class AgendaUI {
 		System.out.println("\n");
 	}
 
+	public void listarPesquisa(List<Contato> contatos) {
+
+		if(contatos.isEmpty()) {
+			System.out.println("Ops, não há contatos correspondentes ao termo buscado.");
+		}else {
+			for(int i = 0; i < contatos.size(); i++) {
+				System.out.println("\n"+(i+1)+"º Contato\n"+"Nome: "+contatos.get(i).getNomeCompleto());
+				for(int j = 0; j < contatos.get(i).getTelefones().size(); j++) {
+					System.out.println((j+1)+"º Telefone: "+contatos.get(i).getTelefoneCompleto(j));
+				}
+				for(int j = 0; j < contatos.get(i).getEnderecos().size();j++) {
+					System.out.println((j+1)+"º Endereço: "+contatos.get(i).getEnderecos().get(j).getLogradouro());
+				}
+			}
+		}
+		System.out.println("\n");
+	}
+
 	public void buscarPorNome() {
 		ContatoDto dto = new ContatoDto();
 		Boolean repete = false;
@@ -130,16 +148,9 @@ public class AgendaUI {
 				repete = true;
 			}
 		} while (repete);
+
 		List<Contato> busca = contatoController.buscar(dto);
-		if(busca.isEmpty()) {
-			System.out.println("Ops, não há contatos correspondentes ao termo buscado.");
-		} else {
-			busca.forEach(contato -> {
-				System.out.println(contato.getNomeCompleto());
-				System.out.println(contato.getTelefones());
-				System.out.println(contato.getEnderecos());
-			});
-		}
+		this.listarPesquisa(busca);
 	}
 	
 	public void removerPorNome(){

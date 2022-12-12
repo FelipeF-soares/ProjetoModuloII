@@ -36,7 +36,7 @@ public class Agenda {
         List<Contato> contatosBuscados = new ArrayList<>();
 
         for (Contato listarContato : listarContatos) {
-            if (listarContato.getNomeCompleto().toUpperCase().trim().contains(pesquisa)) {
+            if (listarContato.getNomeCompleto().toUpperCase().trim().contains(pesquisa.toUpperCase().trim())) {
                 contatosBuscados.add(listarContato);
             }
         }
