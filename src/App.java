@@ -1,12 +1,17 @@
+import controller.AgendaController;
 import ui.AgendaUI;
 
 public class App {
 
 	public static void main(String[] args) {
 		
-		AgendaUI ui = new AgendaUI();
+		//AgendaUI ui = new AgendaUI();
 	
-		ui.menu();
+		//ui.menu();
+
+		AgendaController agendaController = new AgendaController();
+
+		agendaController.menu();
 
 	}
 

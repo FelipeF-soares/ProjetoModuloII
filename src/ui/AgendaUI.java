@@ -13,39 +13,49 @@ import model.Telefone;
 public class AgendaUI {
 	static Scanner scanner = new Scanner(System.in);
 	static ContatoController contatoController =  new ContatoController();
-	static Boolean retornoMenu = true; 
 	
-	public void menu() {
+	public String menu() {
 		System.out.println(".:: Boas vindas à sua agenda! ::.");
-		do {
-			System.out.println(".:: MENU PRINCIPAL::.");
-            System.out.println("Digite uma opção: ");
-            System.out.println("1- Adicionar contato");
-            System.out.println("2- Listar todos os contatos");
-            System.out.println("3- Buscar contato");
-            System.out.println("4- Remover contato por nome");
-            System.out.println("5- Remover todos os contatos");
-            System.out.println("6- Editar contatos");
-            System.out.println("0- Sair do sistema");
 
-            switch (scanner.nextLine()) {
-                case "1" -> this.adicionar();
-                case "2" -> this.listar();
-                case "3" -> this.buscarPorNome();
-                case "4" -> this.removerPorNome();
-                case "5" -> this.removerTodosContatos();
-                case "6" -> this.menuAtualizar();
-                case "0" ->{
-                	System.out.println("Obrigado por utilizar nosso sistema :)");
-                	retornoMenu = false;
-                }
-                default -> System.out.println("Ops, opção inválida!");
-            }
-			
-		}while(retornoMenu);
+		System.out.println(".:: MENU PRINCIPAL::.");
+		System.out.println("Digite uma opção: ");
+		System.out.println("1- Adicionar contato");
+		System.out.println("2- Listar todos os contatos");
+		System.out.println("3- Buscar contato");
+		System.out.println("4- Remover contato por nome");
+		System.out.println("5- Remover todos os contatos");
+		System.out.println("6- Editar contatos");
+		System.out.println("0- Sair do sistema");
+
+		String opcao = scanner.nextLine();
+		return opcao;
+
 	}
+
+
+
+
+	public Boolean menuDadosPessoais(ContatoDto dto) {
+		System.out.println("....::DADOS PESSOAIS:....");
+		System.out.println("Digite o nome: ");
+		dto.setNome(scanner.nextLine());
+		System.out.println("Digite o sobrenome: ");
+		dto.setSobrenome(scanner.nextLine());
+		return contatoController.verificaContato(dto);
+	}
+
+	public String contatoCadastrado(String nome, String sobrenome){
+
+		System.out.println("Contato com nome "+nome+" " +sobrenome +" já está cadastrado");
+		System.out.println("Deseja cadastrar outro contato?");
+		System.out.println("1-Sim");
+		System.out.println("Qualquer outro valor para voltar ao Menu Principal");
+		String nextLine = scanner.nextLine();
+		return nextLine;
+	}
+
 	
-	private void menuAtualizar() {
+	public void menuAtualizar() {
 		Boolean retornoMenuAtualizar = true;
 		do {
 			System.out.println(".:: MENU PARA EDITAR CONTATO::.");
@@ -67,99 +77,80 @@ public class AgendaUI {
 		}while(retornoMenuAtualizar);
 		
 	}
-
-	public void adicionar() {
-		ContatoDto dto = new ContatoDto();
-		Boolean retornoAdiciona = true;
-		do {
-			Boolean verificaContato = this.menuDadosPessoais(dto);
-			if(verificaContato) {
-				List<Endereco> menuEndereco = this.menuEndereco(dto, new ArrayList<Endereco>());
-				List<Telefone> menuTelefone = this.menuTelefone(dto, new ArrayList<Telefone>());
-				Contato adicionarContato = dto.adicionarContato(menuEndereco, menuTelefone);
-				new ContatoController().adicionar(adicionarContato);
-				
-				retornoAdiciona=false;
-			}else {
-				System.out.println("Contato com nome "+dto.getNome()+" " +dto.getSobrenome()+" já está cadastrado");
-				System.out.println("Deseja cadastrar outro contato?");
-				System.out.println("1-Sim");
-				System.out.println("Qualquer outro valor para voltar ao Menu Principal");
-				String nextLine = scanner.nextLine();
-				if(!nextLine.equals("1")) {
-					retornoAdiciona=false;
-				}
-			}
-		}while(retornoAdiciona);
-	}
 	
-	public void listar() {
-		ContatoController controller = new ContatoController();
-		List<Contato> listar = controller.listar();
-		if(listar.isEmpty()) {
-			System.out.println("Você não possui contatos em sua lista");
-		}else {
-			for(int i = 0; i < listar.size(); i++) {
-				System.out.println("\n"+(i+1)+"º Contato\n"+"Nome: "+listar.get(i).getNomeCompleto());
-				for(int j = 0; j < listar.get(i).getTelefones().size(); j++) {
-					System.out.println((j+1)+"º Telefone: "+listar.get(i).getTelefoneCompleto(j));
+	public void listar(List<Contato> contatos) {
+
+		if(!contatos.isEmpty()) {
+			for(int i = 0; i < contatos.size(); i++) {
+				System.out.println("\n"+(i+1)+"º Contato\n"+"Nome: "+contatos.get(i).getNomeCompleto());
+				for(int j = 0; j < contatos.get(i).getTelefones().size(); j++) {
+					System.out.println((j+1)+"º Telefone: "+contatos.get(i).getTelefoneCompleto(j));
 				}
-				for(int j = 0; j < listar.get(i).getEnderecos().size();j++) {
-					System.out.println((j+1)+"º Endereço: "+listar.get(i).getEnderecos().get(j).getLogradouro());
+				for(int j = 0; j < contatos.get(i).getEnderecos().size();j++) {
+					System.out.println((j+1)+"º Endereço: "+contatos.get(i).getEnderecos().get(j).getLogradouro());
 				}
 			}
+		}else {
+			System.out.println("Você não possui contatos em sua lista");
 		}
 		System.out.println("\n");
 	}
 
-	public void buscarPorNome() {
-		ContatoDto dto = new ContatoDto();
-
+	public String pegarNome(){
 		System.out.println("Digite o termo pelo qual deseja buscar: ");
 		String pesquisa = scanner.nextLine();
-		dto.setNome(pesquisa);
 
-		List<Contato> busca = contatoController.buscar(dto);
-		if(busca.isEmpty()) {
-			System.out.println("Ops, não há contatos correspondentes ao termo buscado.");
+		return pesquisa;
+
+	}
+
+	public void imprimirBusca(List<Contato> contatos){
+
+		if(!contatos.isEmpty()) {
+			contatos.forEach(contato -> System.out.println(contato.toString()));
 		} else {
-			busca.forEach(contato -> System.out.println(contato.toString()));
+			System.out.println("Ops, não há contatos correspondentes ao termo buscado.");
 		}
 	}
-	
-	public void removerPorNome() {
-		ContatoDto dto = new ContatoDto();
-		System.out.println("Digite o nome");
-		dto.setNome(scanner.nextLine());
-		System.out.println("Digite o sobrenome");
-		dto.setSobrenome(scanner.nextLine());
-		if(!contatoController.verificaContato(dto)) {
-			Contato retornaContato = contatoController.retornaContato(dto);
-			System.out.println("O contato "+retornaContato .getNome()+ " "+retornaContato .getSobrenome()+" foi localizado!");
-			System.out.println("Deseja realmente excluir esse contato?");
-			System.out.println("1-Sim");
-			System.out.println("Qualquer outro valor para voltar ao Menu Principal");
-			String nextLine = scanner.nextLine();
-			if(nextLine.equals("1")) {
-				contatoController.excluir(retornaContato);
-				System.out.println("Usuário removido com sucesso!");
-			}
-		}else {
-			System.out.println("Usuário não localizado no sistema");
-		}
-		
+
+
+	public String confirmarRemoverContato(Contato contato){
+
+		System.out.println("O contato "+contato.getNome()+ " "+contato.getSobrenome()+" foi localizado!");
+		System.out.println("Deseja realmente excluir esse contato?");
+		System.out.println("1-Sim");
+		System.out.println("Qualquer outro valor para voltar ao Menu Principal");
+		String nextLine = scanner.nextLine();
+		return nextLine;
 	}
-	
-	public void removerTodosContatos() {
+
+	public String confirmarLimparListaContato(){
+
 		System.out.println("Você deseja realmente excluir todos os contatos da sua lista?");
 		System.out.println("1-Sim");
 		System.out.println("Qualquer outro valor para voltar ao Menu Principal");
 		String nextLine = scanner.nextLine();
-		if(nextLine.equals("1")) {
+		return nextLine;
+	}
+
+	public void removerTudo(String confirma){
+		if(confirma.equals("1")) {
 			contatoController.removerTodos();
 			System.out.println("Todos os usuários foram removidos com sucesso!");
+			System.out.println();
+		}else{
+			System.out.println("Você cancelou a operação!!");
+			System.out.println();
 		}
+
 	}
+
+
+
+
+
+
+
 
 	public void adicionarTelefone(){
 		System.out.println("....::ADIÇÃO DE TELEFONE(S):....");
@@ -233,14 +224,7 @@ public class AgendaUI {
 		System.out.printf("Endereço '%s' excluído com sucesso!\n", enderecoExcluido);
 	}
 	
-	public Boolean menuDadosPessoais(ContatoDto dto) {
-		System.out.println("....::DADOS PESSOAIS:....");
-		System.out.println("Digite o nome: ");
-		dto.setNome(scanner.nextLine());
-		System.out.println("Digite o sobrenome: ");
-		dto.setSobrenome(scanner.nextLine());
-		return contatoController.verificaContato(dto);
-	}
+
 	
 	public List<Endereco>  menuEndereco(ContatoDto dto, List<Endereco> listaEndereco) {
 		boolean done;
