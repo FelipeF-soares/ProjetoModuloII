@@ -113,21 +113,32 @@ public class AgendaUI {
 		System.out.println("\n");
 	}
 
-	public void buscarPorNome(){
+	public void buscarPorNome() {
 		ContatoDto dto = new ContatoDto();
+		Boolean repete = false;
 
 		System.out.println("Digite o termo pelo qual deseja buscar: ");
 		String pesquisa = scanner.nextLine();
-		try {
-			dto.setNome(pesquisa);
-		} catch (ValorVazioError e) {
-			e.printStackTrace();
-		}
+		do {
+			try {
+				dto.setNome(pesquisa);
+
+				repete = false;
+			} catch (ValorVazioError e) {
+				e.printStackTrace();
+
+				repete = true;
+			}
+		} while (repete);
 		List<Contato> busca = contatoController.buscar(dto);
 		if(busca.isEmpty()) {
 			System.out.println("Ops, não há contatos correspondentes ao termo buscado.");
 		} else {
-			busca.forEach(contato -> System.out.println(contato.toString()));
+			busca.forEach(contato -> {
+				System.out.println(contato.getNomeCompleto());
+				System.out.println(contato.getTelefones());
+				System.out.println(contato.getEnderecos());
+			});
 		}
 	}
 	
@@ -179,9 +190,11 @@ public class AgendaUI {
 	}
 
 	public void adicionarTelefone(){
+		this.listar();
+
 		System.out.println("....::ADIÇÃO DE TELEFONE(S):....");
 		System.out.println("Insira o índice do contato que deseja adicionar telefone(s):");
-		Integer indexContato = scanner.nextInt();
+		Integer indexContato = (scanner.nextInt() - 1);
 
 		ContatoDto dto = new ContatoDto();
 
@@ -195,8 +208,10 @@ public class AgendaUI {
 	}
 
 	public void removerTelefone(){
+		this.listar();
+
 		System.out.println("Nos informe o id do contato que você deseja remover um número de telefone:");
-		int indexContato = scanner.nextInt();
+		int indexContato = (scanner.nextInt() - 1);
 		scanner.nextLine();
 
 		Contato contato = contatoController.getContato(indexContato);
@@ -204,7 +219,7 @@ public class AgendaUI {
 		// Printar lista de telefones desse contato para pessoa escolher
 
 		System.out.println("Nos informe o id do nº de telefone que você deseja excluir:");
-		int indexTelefone = scanner.nextInt();
+		int indexTelefone = (scanner.nextInt() - 1);
 		scanner.nextLine();
 
 		String telefoneExcluido = contatoController.getContato(indexContato).getTelefoneCompleto(indexTelefone);
@@ -214,9 +229,11 @@ public class AgendaUI {
 		System.out.printf("Telefone '%s' excluído com sucesso!\n", telefoneExcluido);
 	}
 	public void adicionarEndereco(){
+		this.listar();
+
 		System.out.println("....::ADIÇÃO DE ENDEREÇO(S):....");
 		System.out.println("Insira o índice do contato que deseja adicionar endereço(s):");
-		Integer indexContato = scanner.nextInt();
+		Integer indexContato = (scanner.nextInt() - 1);
 
 		ContatoDto dto = new ContatoDto();
 
@@ -230,8 +247,10 @@ public class AgendaUI {
 	}
 
 	public void removerEndereco(){
+		this.listar();
+
 		System.out.println("Nos informe o id do contato que você deseja remover o endereço:");
-		int indexContato = scanner.nextInt();
+		int indexContato = (scanner.nextInt() - 1);
 		scanner.nextLine();
 
 		Contato contato = contatoController.getContato(indexContato);
@@ -239,7 +258,7 @@ public class AgendaUI {
 		// Printar lista de endereços desse contato para pessoa escolher qual excluir
 
 		System.out.println("Nos informe o id do endereço que você deseja excluir:");
-		int indexEndereco = scanner.nextInt();
+		int indexEndereco = (scanner.nextInt() - 1);
 		scanner.nextLine();
 
 		String enderecoExcluido =
