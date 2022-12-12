@@ -16,7 +16,7 @@ public class AgendaUI {
 	static ContatoController contatoController =  new ContatoController();
 	static Boolean retornoMenu = true; 
 	
-	public void menu(){
+	public void menu() {
 		System.out.println(".:: Boas vindas à sua agenda! ::.");
 		do {
 			System.out.println(".:: MENU PRINCIPAL::.");
@@ -133,14 +133,23 @@ public class AgendaUI {
 	
 	public void removerPorNome(){
 		ContatoDto dto = new ContatoDto();
-		System.out.println("Digite o nome");
-		try {
-			dto.setNome(scanner.nextLine());
-		} catch (ValorVazioError e) {
-			e.printStackTrace();
-		}
-		System.out.println("Digite o sobrenome");
-		dto.setSobrenome(scanner.nextLine());
+		Boolean repete = false;
+
+		do {
+			try {
+				System.out.println("Digite o nome: ");
+				dto.setNome(scanner.nextLine());
+				System.out.println("Digite o sobrenome: ");
+				dto.setSobrenome(scanner.nextLine());
+
+				repete = false;
+			} catch (ValorVazioError e) {
+				e.printStackTrace();
+
+				repete = true;
+			}
+		} while (repete);
+
 		if(!contatoController.verificaContato(dto)) {
 			Contato retornaContato = contatoController.retornaContato(dto);
 			System.out.println("O contato "+retornaContato .getNome()+ " "+retornaContato .getSobrenome()+" foi localizado!");
@@ -250,11 +259,12 @@ public class AgendaUI {
 			dto.setNome(scanner.nextLine());
 			System.out.println("Digite o sobrenome: ");
 			dto.setSobrenome(scanner.nextLine());
-			repete=false;
+
+			repete = false;
 			
 		} catch (ValorVazioError e) {
 			System.out.println(e.getMessage()+"\n");
-			repete=true;
+			repete = true;
 		}
 	}while(repete);
 		

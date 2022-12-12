@@ -88,8 +88,12 @@ public class ContatoDto {
 	public String getSobrenome() {
 		return sobrenome;
 	}
-	public void setSobrenome(String sobrenome) {
-		this.sobrenome = sobrenome.toUpperCase().trim();
+	public void setSobrenome(String sobrenome) throws ValorVazioError {
+		if(sobrenome.isBlank()|| sobrenome.isEmpty()) {
+			throw new ValorVazioError();
+		}else {
+			this.sobrenome = sobrenome.toUpperCase().trim();
+		}
 	}
 	public String getCep() {
 		return cep;
