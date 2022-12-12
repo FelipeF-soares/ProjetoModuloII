@@ -112,7 +112,7 @@ public class AgendaUI {
 				System.out.println("Contato com nome "+dto.getNome()+" " +dto.getSobrenome()+" já está cadastrado");
 				System.out.println("Deseja cadastrar outro contato?");
 				System.out.println("1-Sim");
-				System.out.println("Qualquer outro valor para voltar ao Menu Principal");
+				System.out.println("2-Não");
 				String nextLine = scanner.nextLine();
 				if(!nextLine.equals("1")) {
 					retornoAdiciona=false;
@@ -168,7 +168,7 @@ public class AgendaUI {
 			System.out.println("O contato "+retornaContato .getNome()+ " "+retornaContato .getSobrenome()+" foi localizado!");
 			System.out.println("Deseja realmente excluir esse contato?");
 			System.out.println("1-Sim");
-			System.out.println("Qualquer outro valor para voltar ao Menu Principal");
+			System.out.println("2-Não");
 			String nextLine = scanner.nextLine();
 			if(nextLine.equals("1")) {
 				contatoController.excluir(retornaContato);
@@ -183,7 +183,7 @@ public class AgendaUI {
 	public void removerTodosContatos() {
 		System.out.println("Você deseja realmente excluir todos os contatos da sua lista?");
 		System.out.println("1-Sim");
-		System.out.println("Qualquer outro valor para voltar ao Menu Principal");
+		System.out.println("2-Não");
 		String nextLine = scanner.nextLine();
 		if(nextLine.equals("1")) {
 			contatoController.removerTodos();
@@ -207,7 +207,7 @@ public class AgendaUI {
 		do {
 			System.out.println("Deseja adicionar um endereço?");
 			System.out.println("1-Sim");
-			System.out.println("Qualquer outro valor para voltar ao Menu Principal");
+			System.out.println("2-Não");
 			nextLine = scanner.nextLine();
 			if(nextLine.equals("1")) {
 				System.out.println("....::ENDEREÇOS:....");
@@ -234,7 +234,7 @@ public class AgendaUI {
 		do {
 			System.out.println("Deseja adicionar um telefone?");
 			System.out.println("1-Sim");
-			System.out.println("Qualquer outro valor para voltar ao Menu Principal");
+			System.out.println("2-Não");
 			nextLine = scanner.nextLine();
 			if(nextLine.equals("1")) {
 				System.out.println("....::TELEFONES:....");
