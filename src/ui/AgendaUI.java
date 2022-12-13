@@ -27,6 +27,8 @@ public class AgendaUI {
             System.out.println("4- Remover contato por nome");
             System.out.println("5- Remover todos os contatos");
             System.out.println("6- Editar contatos");
+			System.out.println("7- Listar telefones de um contato");
+			System.out.println("8- Listar endereços de um contato");
             System.out.println("0- Sair do sistema");
 
             switch (scanner.nextLine()) {
@@ -36,6 +38,8 @@ public class AgendaUI {
                 case "4" -> this.removerPorNome();
                 case "5" -> this.removerTodosContatos();
                 case "6" -> this.menuAtualizar();
+				case "7" -> this.listarTelefones();
+				case "8" -> this.listarEnderecos();
                 case "0" ->{
                 	System.out.println("Obrigado por utilizar nosso sistema :)");
                 	retornoMenu = false;
@@ -101,13 +105,7 @@ public class AgendaUI {
 			System.out.println("Você não possui contatos em sua lista");
 		}else {
 			for(int i = 0; i < listar.size(); i++) {
-				System.out.println("\n"+(i+1)+"º Contato\n"+"Nome: "+listar.get(i).getNomeCompleto());
-				for(int j = 0; j < listar.get(i).getTelefones().size(); j++) {
-					System.out.println((j+1)+"º Telefone: "+listar.get(i).getTelefoneCompleto(j));
-				}
-				for(int j = 0; j < listar.get(i).getEnderecos().size();j++) {
-					System.out.println((j+1)+"º Endereço: "+listar.get(i).getEnderecos().get(j).getLogradouro());
-				}
+				System.out.println("\n"+(i+1)+"º Contato: " + listar.get(i).getNomeCompleto());
 			}
 		}
 		System.out.println("\n");
@@ -119,13 +117,7 @@ public class AgendaUI {
 			System.out.println("Ops, não há contatos correspondentes ao termo buscado.");
 		}else {
 			for(int i = 0; i < contatos.size(); i++) {
-				System.out.println("\n"+(i+1)+"º Contato\n"+"Nome: "+contatos.get(i).getNomeCompleto());
-				for(int j = 0; j < contatos.get(i).getTelefones().size(); j++) {
-					System.out.println((j+1)+"º Telefone: "+contatos.get(i).getTelefoneCompleto(j));
-				}
-				for(int j = 0; j < contatos.get(i).getEnderecos().size();j++) {
-					System.out.println((j+1)+"º Endereço: "+contatos.get(i).getEnderecos().get(j).getLogradouro());
-				}
+				System.out.println("\n"+(i+1)+"º Contato: "+contatos.get(i).getNomeCompleto());
 			}
 		}
 		System.out.println("\n");
@@ -362,6 +354,41 @@ public class AgendaUI {
 			
 		}while(nextLine.equals("1") || !done);
 		return listaTelefones;
+	}
+
+	public void listarTelefones() {
+		this.listar();
+
+		System.out.println("Informe o id do contato que você deseja listar os telefones:");
+		int indexContato = (scanner.nextInt() - 1);
+		scanner.nextLine();
+
+		Contato contato = contatoController.getContato(indexContato);
+
+		List<Telefone> telefones = contato.getTelefones();
+
+		telefones.forEach((telefone -> {
+			System.out.println("(" + telefone.getDdd() + ") " + telefone.getNumeroTelefone());
+		}));
+		System.out.println("\n");
+
+	}
+
+	public void listarEnderecos() {
+		this.listar();
+
+		System.out.println("Informe o id do contato que você deseja listar os endereços:");
+		int indexContato = (scanner.nextInt() - 1);
+		scanner.nextLine();
+
+		Contato contato = contatoController.getContato(indexContato);
+
+		List<Endereco> enderecos = contato.getEnderecos();
+
+		enderecos.forEach((endereco -> {
+			System.out.println(endereco.toString());
+		}));
+		System.out.println("\n");
 	}
 
 }

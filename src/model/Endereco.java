@@ -59,6 +59,6 @@ public class Endereco {
 		
 		@Override
 		public String toString() {
-		return this.logradouro+" n� "+this.numeroEndereco+","+this.cidade+","+this.estado+","+this.cep;
+		return this.logradouro+" nº "+this.numeroEndereco+","+this.cidade+","+this.estado+","+this.cep;
 		}
 }
