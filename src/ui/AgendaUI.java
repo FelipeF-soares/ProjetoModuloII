@@ -1,10 +1,12 @@
 package ui;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 import controller.ContatoController;
+import controller.ContatoDAO;
 import dto.ContatoDto;
 import erros.ValorVazioError;
 import model.Contato;
@@ -14,12 +16,18 @@ import model.Telefone;
 public class AgendaUI {
 	static Scanner scanner = new Scanner(System.in);
 	static ContatoController contatoController =  new ContatoController();
-	static Boolean retornoMenu = true; 
+	static Boolean retornoMenu = true;
+
+	public AgendaUI(){
+		atualizarTxt();
+	}
 	
 	public void menu() {
-		System.out.println(".:: Boas vindas à sua agenda! ::.");
+		System.out.println(".:: BOAS VINDAS À SUA AGENDA! ::.");
+		System.out.println();
 		do {
 			System.out.println(".:: MENU PRINCIPAL::.");
+			System.out.println();
             System.out.println("Digite uma opção: ");
             System.out.println("1- Adicionar contato");
             System.out.println("2- Listar todos os contatos");
@@ -73,6 +81,20 @@ public class AgendaUI {
 		
 	}
 
+	public void atualizarTxt(){
+
+		ContatoDAO contatoDAO = new ContatoDAO();
+		List<Contato> contatos = contatoDAO.pegarLista();
+
+		for(Contato c : contatos){
+			contatoController.adicionar(c);
+
+		}
+		this.listar();
+
+
+	}
+
 	public void adicionar(){
 		ContatoDto dto = new ContatoDto();
 		Boolean retornoAdiciona = true;
@@ -101,14 +123,16 @@ public class AgendaUI {
 	public void listar() {
 		ContatoController controller = new ContatoController();
 		List<Contato> listar = controller.listar();
+		System.out.println("##### LISTA DOS CONTATOS CADASTRADOS ########");
+		System.out.println();
 		if(listar.isEmpty()) {
 			System.out.println("Você não possui contatos em sua lista");
 		}else {
 			for(int i = 0; i < listar.size(); i++) {
-				System.out.println("\n"+(i+1)+"º Contato: " + listar.get(i).getNomeCompleto());
+				System.out.println((i+1)+"º Contato: " + listar.get(i).getNomeCompleto());
 			}
 		}
-		System.out.println("\n");
+		System.out.println();
 	}
 
 	public void listarPesquisa(List<Contato> contatos) {
@@ -184,7 +208,7 @@ public class AgendaUI {
 	public void removerTodosContatos() {
 		System.out.println("Você deseja realmente excluir todos os contatos da sua lista?");
 		System.out.println("1-Sim");
-		System.out.println("2-Não");
+		System.out.println("Qualquer outro valor para voltar ao Menu Principal");
 		String nextLine = scanner.nextLine();
 		if(nextLine.equals("1")) {
 			contatoController.removerTodos();
