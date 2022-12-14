@@ -23,10 +23,12 @@ public class Agenda {
     }
     public void editar(Integer index, Contato contato) {
         this.contatos.set(index, contato);
+        ContatoDAO.gravarContatos(contatos);
     }
 
     public void excluir(Contato contato) {
         contatos.remove(contato);
+        ContatoDAO.gravarContatos(contatos);
     }
 
     //Listar todos os contatos da agenda
@@ -71,6 +73,7 @@ public class Agenda {
     //remover todos os contatos da Agenda
     public void removerTodos() {
         contatos.clear();
+        ContatoDAO.gravarContatos(contatos);
     }
 
     public Contato getContato(Integer index) {

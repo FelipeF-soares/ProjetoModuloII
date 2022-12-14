@@ -34,7 +34,7 @@ public class ContatoDAO {
 
     }
 
-    public static List<Contato> pegarLista(){
+    public List<Contato> pegarLista(){
         Gson gson = new Gson();
         List<Contato> contatos = new ArrayList<>();
         String linha = "";
