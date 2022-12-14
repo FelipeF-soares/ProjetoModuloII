@@ -1,5 +1,7 @@
 package model;
 
+import controller.ContatoDAO;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,11 +14,12 @@ public class Agenda {
     }
 
     public Agenda(List<Contato> contatos) {
-        this.contatos = new ArrayList<>();
+        this.contatos = contatos;
     }
 
     public void adicionar(Contato contato) {
         this.contatos.add(contato);
+        ContatoDAO.gravarContatos(contatos);
     }
     public void editar(Integer index, Contato contato) {
         this.contatos.set(index, contato);
