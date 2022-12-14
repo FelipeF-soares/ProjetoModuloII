@@ -52,7 +52,7 @@ public class Contato {
 	
 	@Override
 	public String toString() {
-		return "[" + "Nome: "+this.nome+" "+this.sobrenome+"\n[Telefones: "+this.telefones+"]\n[Endereços: "+this.enderecos+"]\n";
+		return "{" + "Nome: "+this.nome+" "+this.sobrenome+"\n[Telefones: "+this.telefones+"]\n[EndereÃ§os: "+this.enderecos+"}\n";
 	}
 	
 }

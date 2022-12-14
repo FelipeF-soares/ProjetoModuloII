@@ -1,11 +1,15 @@
 package model;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import dao.AgendaDao;
 
 public class Agenda {
 	
 	private List<Contato> contatos;
+	AgendaDao dao = new AgendaDao();
 
     public Agenda() {
         this.contatos = new ArrayList<>();
@@ -17,6 +21,13 @@ public class Agenda {
 
     public void adicionar(Contato contato) {
         this.contatos.add(contato);
+        String contatoString = dao.preparaContato(contatos);
+        try {
+			dao.salvarContato(contatoString);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
     public void editar(Integer index, Contato contato) {
         this.contatos.set(index, contato);
@@ -28,7 +39,14 @@ public class Agenda {
 
     //Listar todos os contatos da agenda
     public List<Contato> listar() {
-    	return contatos;
+    	List<Contato> ListaContatString =  new ArrayList<Contato>();
+    	try {
+    		ListaContatString = dao.listarContatos();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	return ListaContatString;
     }
     //Busca um por nome retorna o toString contato localizado
     public List<Contato> buscar(String pesquisa) {
