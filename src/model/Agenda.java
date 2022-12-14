@@ -18,6 +18,9 @@ public class Agenda {
     public void adicionar(Contato contato) {
         this.contatos.add(contato);
     }
+    public void editar(Integer index, Contato contato) {
+        this.contatos.set(index, contato);
+    }
 
     public void excluir(Contato contato) {
         contatos.remove(contato);
@@ -32,11 +35,11 @@ public class Agenda {
     	List<Contato> listarContatos = this.listar();
         List<Contato> contatosBuscados = new ArrayList<>();
 
-    	for(int i = 0; i < listarContatos.size(); i++) {
-            if(listarContatos.get(i).getNomeCompleto().toUpperCase().trim().contains(pesquisa)) {
-                contatosBuscados.add(listarContatos.get(i));
+        for (Contato listarContato : listarContatos) {
+            if (listarContato.getNomeCompleto().toUpperCase().trim().contains(pesquisa.toUpperCase().trim())) {
+                contatosBuscados.add(listarContato);
             }
-    	}
+        }
 
         return contatosBuscados;
     }
@@ -44,21 +47,21 @@ public class Agenda {
     //verifica se o contato foi localizado
     public Boolean verificaContato(String nome, String sobrenome) {
     	List<Contato> listarContatos = this.listar();
-    	for(int i = 0; i < listarContatos.size(); i++) {
-    		if(listarContatos.get(i).getNome().equals(nome.toUpperCase().trim()) && listarContatos.get(i).getSobrenome().equals(sobrenome.toUpperCase().trim())) {
-    			return false;
-    		}
-    	}
+        for (Contato listarContato : listarContatos) {
+            if (listarContato.getNome().equals(nome.toUpperCase().trim()) && listarContato.getSobrenome().equals(sobrenome.toUpperCase().trim())) {
+                return false;
+            }
+        }
     	return true;
     }
     // retorna o Objeto Localizado
     public Contato retornaContato(String nome, String sobrenome) {
     	List<Contato> listarContatos = this.listar();
-    	for(int i = 0; i < listarContatos.size(); i++) {
-    		if(listarContatos.get(i).getNome().equals(nome) && listarContatos.get(i).getSobrenome().equals(sobrenome)) {
-    			return listarContatos.get(i);
-    		}
-    	}
+        for (Contato listarContato : listarContatos) {
+            if (listarContato.getNome().equals(nome) && listarContato.getSobrenome().equals(sobrenome)) {
+                return listarContato;
+            }
+        }
     	return null;
     }
 
@@ -67,4 +70,16 @@ public class Agenda {
         contatos.clear();
     }
 
+    public Contato getContato(Integer index) {
+        return contatos.get(index);
+    }
+    public void setContato(Integer index, Contato contato) {
+        contatos.set(index, contato);
+    }
+    public Telefone removerTelefone(Integer indexContato, int indexTelefone){
+        return this.contatos.get(indexContato).getTelefones().remove(indexTelefone);
+    }
+    public Endereco removerEndereco(Integer indexContato, int indexEndereco){
+        return this.contatos.get(indexContato).getEnderecos().remove(indexEndereco);
+    }
 }

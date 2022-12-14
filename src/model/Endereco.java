@@ -1,12 +1,29 @@
 package model;
 
+import java.util.Objects;
+
 public class Endereco {
 	
 		 private String cep;
 		 private String logradouro;
 		 private String numeroEndereco;
 		 private String cidade;
-		 private String estado;
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Endereco endereco = (Endereco) o;
+		// Adicionei esse replace para comparar com ou sem hífen (só comparar os dígitos)
+		return Objects.equals(cep.replace("-",""), endereco.cep.replace("-","")) && Objects.equals(logradouro, endereco.logradouro) && Objects.equals(numeroEndereco, endereco.numeroEndereco) && Objects.equals(cidade, endereco.cidade) && Objects.equals(estado, endereco.estado);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(cep, logradouro, numeroEndereco, cidade, estado);
+	}
+
+	private String estado;
 	 
 	 
 		public String getCep() {
@@ -42,6 +59,6 @@ public class Endereco {
 		
 		@Override
 		public String toString() {
-		return this.logradouro+" n� "+this.numeroEndereco+","+this.cidade+","+this.estado+","+this.cep;
+		return this.logradouro+" nº "+this.numeroEndereco+","+this.cidade+","+this.estado+","+this.cep;
 		}
 }

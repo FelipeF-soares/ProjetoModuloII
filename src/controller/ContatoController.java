@@ -5,6 +5,8 @@ import java.util.List;
 import dto.ContatoDto;
 import model.Agenda;
 import model.Contato;
+import model.Endereco;
+import model.Telefone;
 
 public class ContatoController {
 	
@@ -13,10 +15,24 @@ public class ContatoController {
 	public void adicionar(Contato contato) {
 		agenda.adicionar(contato);
 	}
+	public Contato getContato(Integer index){
+		return agenda.getContato(index);
+	}
+
+	public Telefone removerTelefone(Integer indexContato, Integer indexTelefone){
+		return agenda.removerTelefone(indexContato, indexTelefone);
+	}
+	public Endereco removerEndereco(Integer indexContato, Integer indexEndereco){
+		return agenda.removerEndereco(indexContato, indexEndereco);
+	}
+
+	public void editar(Integer index, Contato contato){
+		agenda.editar(index, contato);
+
+	}
 	
 	public List<Contato>  listar() {
-		List<Contato> listar = agenda.listar();
-		return listar;
+		return agenda.listar();
 	}
 	
 	public Boolean verificaContato(ContatoDto dto) {

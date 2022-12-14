@@ -6,7 +6,8 @@ public class App {
 		
 		AgendaUI ui = new AgendaUI();
 	
-		ui.menu();
+		
+			ui.menu();
 
 	}
 
